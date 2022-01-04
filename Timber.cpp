@@ -1,7 +1,26 @@
+#include <iostream>
 #include<sstream>
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
+
+//Global Scope
+//function declaration
+void updateBranches(int seed);
+
+const int MAX_BRANCHES = 6;
+Sprite branches[MAX_BRANCHES];  //array to hold 6 sprites
+
+//which side player or branch is?
+enum side
+{
+    LEFT,
+    RIGHT,
+    NONE
+};
+
+side branchpositions[MAX_BRANCHES]; //array to hold 6 branch side
+
 
 int main()
 {
@@ -129,6 +148,22 @@ int main()
 
     messageText.setPosition(1920 / 2.0f, 1080 / 2.0f); //which is center of screen
     scoreText.setPosition(20, 20);
+
+    //Prepare 6 branches Texture
+    Texture texturebranch;
+    texturebranch.loadFromFile("Graphics/branch.png");
+
+    //set texture for each branch sprite
+    for (int i = 0; i < MAX_BRANCHES; i++)
+    {
+        branches[i].setTexture(texturebranch);
+        branches[i].setPosition(-2000, -2000);
+
+        //set sprite orgin to dead center
+        //we are changing orgin because can spin it aound without changing position
+        branches[i].setOrigin(220, 20);
+
+    }
 
     while (window.isOpen())
     {
@@ -293,6 +328,34 @@ int main()
             //Update the scoretext       
             ss << "score = " << score;
             scoreText.setString(ss.str());
+
+            //update the branch sprites
+            for (int i = 0; i < MAX_BRANCHES; i++)
+            {
+                //std::cout << i << "\n"; //debug
+                float height = i * 150;
+                if (branchpositions[i] == side::LEFT)
+                {
+                    //move the sprite to left side
+                    branches[i].setPosition(610, height);
+                    //flip the sprite
+                    branches[i].setRotation(180);
+                }
+                else if (branchpositions[i]==side::RIGHT)
+                {
+                    //move the sprite to right side
+                    branches[i].setPosition(1330, height);
+                    //set zero rotation
+                    branches[i].setRotation(0);
+                }
+                else
+                {
+                    //hide the branch
+                    branches[i].setPosition(3000, height);
+                }
+            }
+
+            //std::cout << "Done" << "\n"; //debug
         } //End if(!paused)
 
         /*
@@ -313,6 +376,10 @@ int main()
         window.draw(spritecloud1);
         window.draw(spritecloud2);
         window.draw(spritecloud3);
+        for (int i = 0; i < MAX_BRANCHES; i++)
+        {
+            window.draw(branches[i]);
+        }
         //Drawing the scoretext
         window.draw(scoreText);
         //Draw the timebar
@@ -323,9 +390,34 @@ int main()
         }
         // Show everything we just drew 
         window.display();
+    }
+    return 0;
+}
 
+void updateBranches(int seed)
+{
+    //move all the branches down one place 
+    for (int j = MAX_BRANCHES - 1; j > 0; j--)
+    {
+        branchpositions[j] = branchpositions[j - 1];
+        std::cout << branchpositions[j]<<"\n";
     }
 
-    return 0;
+    //spawn a new branch at position 0
+    srand((int)time(0) + seed);
+    int r = (rand() % 5);
+
+    switch (r)
+    {
+    case 0:
+        branchpositions[0] = side::LEFT;
+        break;
+    case 1:
+        branchpositions[0] = side::RIGHT;
+        break;
+    default:
+        branchpositions[0] = side::NONE;
+        break;
+    }
 }
 
