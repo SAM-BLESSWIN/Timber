@@ -1,2 +1,10 @@
 ﻿  Timber.cpp
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(191,43): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(195,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(218,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(222,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(244,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(248,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(270,39): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Passion\Projects\SFML and C++\Timber\Timber.cpp(274,30): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   Timber.vcxproj -> D:\Passion\Projects\SFML and C++\Timber\Debug\Timber.exe
